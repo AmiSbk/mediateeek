@@ -74,16 +74,34 @@ class FormationRepository extends ServiceEntityRepository
      * ou tous les enregistrements si la valeur est vide
      * @param type $champ
      * @param type $valeur
-     * @param type $table si $champ dans une autre table
      * @return Formation[]
      */
-    public function findByContainValue($champ, $valeur, $table=""): array{
+    public function findByContainValue($champ, $valeur): array{
         if($valeur==""){
             return $this->findAll();
         }
         
         return $this->createQueryBuilder('f')
                 ->where('f.'.$champ.' LIKE :valeur')
+                ->orderBy('f.publishedAt', 'DESC')
+                ->setParameter('valeur', '%'.$valeur.'%')
+                ->getQuery()
+                ->getResult();            
+    
+    }    
+        /**
+     * Enregistrements dont un champ contient une valeur
+     * ou tous les enregistrements si la valeur est vide
+     * @param type $champ
+     * @param type $valeur
+     * @param type $table si $champ dans une autre table
+     * @return Formation[]
+     */
+    public function findByContainValueT($champ, $valeur, $table=""): array{
+
+        return $this->createQueryBuilder('f')
+                ->join('f.'.$table, 't')
+                ->where('t.'.$champ.' LIKE :valeur')
                 ->orderBy('f.publishedAt', 'DESC')
                 ->setParameter('valeur', '%'.$valeur.'%')
                 ->getQuery()

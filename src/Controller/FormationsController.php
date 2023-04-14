@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Controleur des formations
  *
- * @author emds
  */
 class FormationsController extends AbstractController {
 
@@ -19,7 +18,10 @@ class FormationsController extends AbstractController {
      * 
      * @var FormationRepository
      */
+    
     private $formationRepository;
+    
+
     
     /**
      * 
@@ -78,7 +80,13 @@ class FormationsController extends AbstractController {
      */
     public function findAllContain($champ, Request $request, $table=""): Response{
         $valeur = $request->get("recherche");
-        $formations = $this->formationRepository->findByContainValue($champ, $valeur, $table);
+        if($table !="")
+        {
+            $formations = $this->formationRepository->findByContainValueT($champ, $valeur, $table);
+        }else 
+        {
+            $formations = $this->formationRepository->findByContainValue($champ, $valeur);
+        }        
         $categories = $this->categorieRepository->findAll();
             return $this->render(self::RETOURNEFORMATION, [
             'formations' => $formations,
@@ -95,7 +103,7 @@ class FormationsController extends AbstractController {
      */
     public function showOne($id): Response{
         $formation = $this->formationRepository->find($id);
-        return $this->render(self::RETOURNEFORMATION, [
+        return $this->render("pages/formation.html.twig", [
             'formation' => $formation
         ]);        
     }   

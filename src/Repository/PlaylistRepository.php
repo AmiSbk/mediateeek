@@ -43,6 +43,7 @@ class PlaylistRepository extends ServiceEntityRepository
     private const FORMATION = 'p.formations';
     private const ID = 'p.id';
     private const NAME = 'p.name';
+   
     
     
     /**
@@ -108,8 +109,7 @@ class PlaylistRepository extends ServiceEntityRepository
                     ->groupBy(self::ID)
                     ->orderBy(self::NAME, 'ASC')
                     ->getQuery()
-                    ->getResult();              
-            
+                    ->getResult();                          
         }           
     }    
 

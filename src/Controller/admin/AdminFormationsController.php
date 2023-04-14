@@ -4,6 +4,7 @@ namespace App\Controller\admin;
 
 use App\Form\FormationType;
 use App\Entity\Formation;
+use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
 use App\Repository\FormationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Description of AdminFormationsController
  *
- * @author HP
  */
 class AdminFormationsController  extends AbstractController {
     /**
@@ -110,7 +110,10 @@ class AdminFormationsController  extends AbstractController {
 
         $formFormation->handleRequest($request);
         if ($formFormation->isSubmitted()&& $formFormation->isValid()){
-            $this->formationRepository->add($formations,true);
+            if ($this->isValidDate($formations->getPublishedAt())) {
+                $this->formationRepository->add($formations, true);
+            }            
+#$this->formationRepository->add($formations,true);
             return $this->redirectToRoute(self::RETOURNEADMINFORMATION);
         }
 
@@ -134,7 +137,10 @@ class AdminFormationsController  extends AbstractController {
 
         $formFormation->handleRequest($request);
         if ($formFormation->isSubmitted()&& $formFormation->isValid()){
-            $this->formationRepository->add($formations,true);
+            if ($this->isValidDate($formations->getPublishedAt())) {
+                $this->formationRepository->add($formations, true);
+            }
+            #$this->formationRepository->add($formations,true);
             return $this->redirectToRoute(self::RETOURNEADMINFORMATION);
         }
 
@@ -157,5 +163,13 @@ class AdminFormationsController  extends AbstractController {
         $this->formationRepository->remove($formations,true);
         return $this->redirectToRoute(self::RETOURNEADMINFORMATION);
 
+    }
+    
+    /**
+     * 
+     */
+    public function isValidDate($date): bool
+    {
+        return $date<=new \DateTime('now');
     }
 }

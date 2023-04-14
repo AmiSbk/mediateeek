@@ -12,8 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Playlist
 {
+
     /**
-     * @ORM\Id
+     *
+     * @var type @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
@@ -98,8 +100,9 @@ class Playlist
     }
     
         /**
-     * @return Collection<int, string>
-     */	
+         * 
+         * @return Collection<int, Categories>
+         */	
 	public function getCategoriesPlaylist() : Collection
 	{
             $categories = new ArrayCollection();

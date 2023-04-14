@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Description of PlaylistsController
  *
- * @author emds
  */
 class PlaylistsController extends AbstractController {
     
@@ -32,6 +31,8 @@ class PlaylistsController extends AbstractController {
 
     
     /**
+     * Création du constructeur
+     * 
      * 
      * @var CategorieRepository
      */
@@ -44,6 +45,7 @@ class PlaylistsController extends AbstractController {
     }
     
     /**
+     * Création de la route vers les playlists
      * @Route("/playlists", name="playlists")
      * @return Response
      */
@@ -57,6 +59,7 @@ class PlaylistsController extends AbstractController {
     }
 
     /**
+     * Tri des enregistrements selon le champ et l'ordre
      * @Route("/playlists/tri/{champ}/{ordre}", name="playlists.sort")
      * @param type $champ
      * @param type $ordre
@@ -83,6 +86,7 @@ class PlaylistsController extends AbstractController {
     }         
     
     /**
+     * Récupère les enregistrements selon le champ, la valeur et la table
      * @Route("/playlists/recherche/{champ}/{table}", name="playlists.findallcontain")
      * @param type $champ
      * @param Request $request
@@ -92,27 +96,34 @@ class PlaylistsController extends AbstractController {
     public function findAllContain($champ, Request $request, $table=""): Response{
     
         $valeur = $request->get("recherche");
-        $playlists = $this->playlistRepository->findByContainValue($champ, $valeur, $table);
+        if ($table != ""){
+            $playlists = $this->playlistRepository->findByContainValueT($champ, $valeur, $table);
+        }else{
+            $playlists = $this->playlistRepository->findByContainValue($champ, $valeur);
+        }
         $categories = $this->categorieRepository->findAll();
             return $this->render(self::RETOURNEPLAYLISTS, [
                 
                 'playlists' => $playlists,
-                'categories' => $categories,            
+                'categories' => $categories,     
                 'valeur' => $valeur,
                 'table' => $table
             ]);
     }  
     
     /**
+     * Récupère les enregistrements de playlists individuelles
      * @Route("/playlists/playlist/{id}", name="playlists.showone")
      * @param type $id
      * @return Response
      */
     public function showOne($id): Response{
         $playlist = $this->playlistRepository->find($id);
+        
         $playlistCategories = $this->categorieRepository->findAllForOnePlaylist($id);
         $playlistFormations = $this->formationRepository->findAllForOnePlaylist($id);
-        return $this->render(self::RETOURNEPLAYLISTS, [
+        return $this->render("pages/playlist.html.twig", [
+     
             'playlist' => $playlist,
             'playlistcategories' => $playlistCategories,
             'playlistformations' => $playlistFormations
