@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Controleur des formations
+ * Controleur qui gère les routes de la page formations
  *
  */
 class FormationsController extends AbstractController {
@@ -24,19 +24,27 @@ class FormationsController extends AbstractController {
 
     
     /**
-     * 
      * @var CategorieRepository
      */
     private $categorieRepository;
     
+    /**
+     * constante qui mène à la page des formations
+     */
     private const RETOURNEFORMATION = "pages/formations.html.twig";
     
+    /**
+     * Création du constructeur
+     * @param FormationRepository $formationRepository
+     * @param CategorieRepository $categorieRepository
+     */
     function __construct(FormationRepository $formationRepository, CategorieRepository $categorieRepository) {
         $this->formationRepository = $formationRepository;
         $this->categorieRepository= $categorieRepository;
     }
     
     /**
+     * Création de la route qui dirige vers la page des formations
      * @Route("/formations", name="formations")
      * @return Response
      */
@@ -50,6 +58,8 @@ class FormationsController extends AbstractController {
     }
 
     /**
+     * Tri des enregistrements en fonction du champ et de l'ordre et de la table si la table n'est pas vide
+     * Tri des enregistrements en fosnction du champ et de l'ordre si la table est vide
      * @Route("/formations/tri/{champ}/{ordre}/{table}", name="formations.sort")
      * @param type $champ
      * @param type $ordre
@@ -63,7 +73,8 @@ class FormationsController extends AbstractController {
         }else 
         {
             $formations = $this->formationRepository->findAllOrderBy($champ, $ordre);
-        }        $categories = $this->categorieRepository->findAll();
+        }        
+        $categories = $this->categorieRepository->findAll();
         return $this->render(self::RETOURNEFORMATION, [
             'formations' => $formations,
             'categories' => $categories,
@@ -72,6 +83,8 @@ class FormationsController extends AbstractController {
     }     
     
     /**
+     * Tri des enregistrements en fonction du champ et de l'ordre et de la table si la table n'est pas vide
+     * Tri des enregistrements en fosnction du champ et de l'ordre si la table est vide
      * @Route("/formations/recherche/{champ}/{table}", name="formations.findallcontain")
      * @param type $champ
      * @param Request $request
@@ -97,6 +110,7 @@ class FormationsController extends AbstractController {
     }  
     
     /**
+     * Récupère les informations d'une formation 
      * @Route("/formations/formation/{id}", name="formations.showone")
      * @param type $id
      * @return Response

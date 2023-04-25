@@ -21,7 +21,7 @@ class PlaylistRepositoryTest extends KernelTestCase {
     }
 
     /**
-     * Récupère le nombre d'enregistrements contenus dans la table Playlist
+     * Test sur la méthode testNbPlaylists
      */
     public function testNbPlaylists(){
         $repository = $this->recupRepository();
@@ -40,6 +40,9 @@ class PlaylistRepositoryTest extends KernelTestCase {
         return $playlist;
     }
 
+    /** 
+     * Tests sur la méthode AddPlaylist
+     */
     public function testAddPlaylist(){
         $repository = $this->recupRepository();
         $playlist = $this->newPlaylist();
@@ -48,6 +51,9 @@ class PlaylistRepositoryTest extends KernelTestCase {
         $this->assertEquals($nbPlaylists + 1, $repository->count([]), "erreur lors de l'ajout");
     }
 
+    /**
+     * Test sur la méthode RemoveFormation
+     */
     public function testRemoveFormation(){
         $repository = $this->recupRepository();
         $playlist = $this->newPlaylist();
@@ -57,6 +63,9 @@ class PlaylistRepositoryTest extends KernelTestCase {
         $this->assertEquals($nbPlaylists - 1, $repository->count([]), "erreur lors de la suppression");
     }
 
+    /**
+     * Test sur la méthode FindAllOrderByName
+     */
     public function testFindAllOrderByName(){
         $repository = $this->recupRepository();
         $playlist = $this->newPlaylist();
@@ -67,6 +76,9 @@ class PlaylistRepositoryTest extends KernelTestCase {
         $this->assertEquals("Android - Test playlist", $playlists[0]->getName());
     }
 
+    /**
+     * Test sur la méthode FindAllOrderByNbFormations
+     */
      public function testFindAllOrderByNbFormations(){
         $repository = $this->recupRepository();
         $playlist = $this->newPlaylist();
@@ -77,6 +89,9 @@ class PlaylistRepositoryTest extends KernelTestCase {
         $this->assertEquals("Cours Informatique embarquée", $playlists[0]->getName());
     }
 
+    /**
+     * Test sur la méthode FindByContainValue
+     */
     public function testFindByContainValue(){
         $repository = $this->recupRepository();
         $playlist = $this->newPlaylist();
@@ -87,6 +102,9 @@ class PlaylistRepositoryTest extends KernelTestCase {
         $this->assertEquals("Exercices objet (sujets EDC BTS SIO)", $playlists[0]->getName());
     }
 
+    /**
+     * Test sur la méthode FindContainValueTable
+     */
     public function testFindByContainValueTable(){
         $repository = $this->recupRepository();
         $playlist = $this->newPlaylist();

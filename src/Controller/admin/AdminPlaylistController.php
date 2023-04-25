@@ -37,9 +37,18 @@ class AdminPlaylistController extends AbstractController {
      */
     private $categorieRepository;    
 
-    private const RETOURNEPLAYLIST= "admin/admin.playlist.html.twig";
+    /**
+     * Constante qui redirige vers la page admin.playlist
+     */
+    private const RETOURNEPLAYLIST = "admin/admin.playlist.html.twig";
     private const RETOURNEADMINPLAYLIST = "admin.playlist";
 
+    /**
+     * Création du constructeur
+     * @param PlaylistRepository $playlistRepository
+     * @param CategorieRepository $categorieRepository
+     * @param FormationRepository $formationRespository
+     */
     function __construct(PlaylistRepository $playlistRepository,CategorieRepository $categorieRepository, FormationRepository $formationRespository) 
     {
         $this->playlistRepository = $playlistRepository;
@@ -48,6 +57,7 @@ class AdminPlaylistController extends AbstractController {
     }
 
     /**
+     * Création de la route vers la page des playlists
      * @Route("/admin/playlist", name="admin.playlist")
      * @return Response
      */
@@ -62,6 +72,7 @@ class AdminPlaylistController extends AbstractController {
     }
 
     /**
+     * Tri des enregistrements en fonction du nom des playlists
      * @Route("/admin/playlist/tri/{champ}/{ordre}", name="admin.playlist.sort")
      * @param type $champ
      * @param type $ordre
@@ -88,6 +99,8 @@ class AdminPlaylistController extends AbstractController {
     }        
 
     /**
+     * Recherche en fonction du champ et de l'ordre et de la table si la table n'est pas vide
+     * Recherche en fonction du champ et de l'ordre si la table est vide
      * @Route("/admin/playlist/recherche/{champ}/{table}", name="admin.playlist.findallcontain")
      * @param type $champ
      * @param Request $request
@@ -97,10 +110,14 @@ class AdminPlaylistController extends AbstractController {
     public function findAllContain($champ, Request $request, $table=""): Response
     {
         $valeur = $request->get("recherche");
-        $playlist = $this->playlistRepository->findByContainValue($champ, $valeur, $table);
+        if($table !=""){
+            $playlists = $this->playlistRepository->findByContainValue($champ, $valeur, $table);
+        }else{
+            $playlists = $this->playlistRepository->findByContainValue($champ, $valeur);
+        }
         $categories = $this->categorieRepository->findAll();
         return $this->render(self::RETOURNEPLAYLIST, [
-            'playlist' => $playlist ,
+            'playlists' => $playlists ,
             'categories' => $categories,            
             'valeur' => $valeur,
             'table' => $table

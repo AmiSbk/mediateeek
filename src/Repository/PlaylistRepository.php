@@ -16,11 +16,18 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PlaylistRepository extends ServiceEntityRepository
 {
+    /**
+     * 
+     * @param ManagerRegistry $registryCréation du constructeur
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Playlist::class);
     }
 
+    /**
+     * Ajout d'une playlist
+     */
     public function add(Playlist $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -31,6 +38,9 @@ class PlaylistRepository extends ServiceEntityRepository
     }
     
 
+    /**
+     * Suppression d'une playlist
+     */
     public function remove(Playlist $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

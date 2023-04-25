@@ -11,7 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AccueilControllerTest extends WebTestCase {
 
-   public function testAccesPage(){
+    /**
+     * Test l'accès à la page d'accueil
+     */
+    public function testAccesPage(){
        $client = static::createClient();
        $client->request('GET', '/');
        $this->assertResponseStatusCodeSame(Response::HTTP_OK);

@@ -30,21 +30,31 @@ class Categorie
      */
     private $formations;
 
+    /**
+     * Création du constructeur
+     */
     public function __construct()
     {
         $this->formations = new ArrayCollection();
     }
-
+    /**
+     * 
+     * @return int|nullRécupère l'id
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    /**
+     * Récupère le nom
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
-
+    /**
+     * Redéfinit le nom
+     */
     public function setName(?string $name): self
     {
         $this->name = $name;
@@ -53,13 +63,18 @@ class Categorie
     }
 
     /**
+     * Récupère la formation
      * @return Collection<int, Formation>
      */
     public function getFormations(): Collection
     {
         return $this->formations;
     }
-
+    /**
+     * 
+     * @param Formation $formation
+     * @return selfAjoute une formation
+     */
     public function addFormation(Formation $formation): self
     {
         if (!$this->formations->contains($formation)) {
@@ -69,7 +84,9 @@ class Categorie
 
         return $this;
     }
-
+    /**
+     * Supprime une formation
+     */
     public function removeFormation(Formation $formation): self
     {
         if ($this->formations->removeElement($formation)) {

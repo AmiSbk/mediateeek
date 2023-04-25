@@ -12,6 +12,9 @@ use PHPUnit\Framework\TestCase;
  */
 class DateTest extends TestCase {
 
+    /**
+     * Test sur la méthode GetPublishedAtString
+     */
     public function testGetPublishedAtString(){
        $formation = new Formation();
        $formation->setPublishedAt(new DateTime("2021-01-04"));

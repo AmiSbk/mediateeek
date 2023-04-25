@@ -11,12 +11,18 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class PlaylistsControllerTest extends WebTestCase {
 
+    /**
+     * Teste l'accès à la page des playlists
+     */
     public function testAccesPage(){
        $client = static::createClient();
        $client->request('GET', '/playlists');
        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
    }
 
+   /** Teste le tri sur les playlists
+    * 
+    */
     public function testTriPlaylists()
     {
         $client = static::createClient();
@@ -26,6 +32,9 @@ class PlaylistsControllerTest extends WebTestCase {
         $this->assertSelectorTextContains('h5', 'Android - Test playlist');
     }
 
+    /**
+     * Test le tri des playlists sur le nombre de formations
+     */
     public function testTriNbFormations()
     {
         $client = static::createClient();
@@ -35,6 +44,9 @@ class PlaylistsControllerTest extends WebTestCase {
         $this->assertSelectorTextContains('h5', 'Cours Informatique embarquée');
     }
 
+    /**
+     * Test sur le filtre des playlists
+     */
     public function testFiltrePlaylists()
     {
         $client = static::createClient();
@@ -48,6 +60,9 @@ class PlaylistsControllerTest extends WebTestCase {
          $this->assertSelectorTextContains('h5', 'sujet');
     }
 
+    /**
+     * Test sur le filtre des catégories
+     */
     public function testFiltreCategories()
     {
         $client = static::createClient();
@@ -61,7 +76,10 @@ class PlaylistsControllerTest extends WebTestCase {
          $this->assertSelectorTextContains('h5', 'Android - Test playlist');
     }
 
-    public function testLienPlaylists() {
+    /**
+     * Test sur le lien des playlists
+     */
+    public function testLinkPlaylists() {
         $client = static::createClient();
         $client->request('GET','/playlists');
         $client->clickLink("Voir détail");

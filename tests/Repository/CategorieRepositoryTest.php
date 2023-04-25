@@ -22,7 +22,7 @@ class CategorieRepositoryTest extends KernelTestCase{
     }
 
     /**
-     * Récupère le nombre d'enregistrements contenus dans la table Catégorie
+     * Test sur la méthode testNbCategories
      */
     public function testNbCategories(){
         $repository = $this->recupRepository();
@@ -41,7 +41,7 @@ class CategorieRepositoryTest extends KernelTestCase{
     }
     
     /**
-     * Ajout d'une catégorie
+     * Test sur l'ajout d'une catégorie
      */
      public function testAddCategorie(){
         $repository = $this->recupRepository();
@@ -52,7 +52,7 @@ class CategorieRepositoryTest extends KernelTestCase{
     }
 
     /**
-     * Suppression d'une catégorie
+     * Test sur la suppression d'une catégorie
      */
     public function testRemoveCategorie(){
         $repository = $this->recupRepository();
@@ -63,7 +63,9 @@ class CategorieRepositoryTest extends KernelTestCase{
         $this->assertEquals($nbCategories - 1, $repository->count([]), "erreur lors de la suppression");
     }
 
-    
+    /**
+     * Test sur la méthode FindAllForOnePlaylist
+     */
      public function testFindAllForOnePlaylist(){
         $repository = $this->recupRepository();
         $categorie = $this->newCategorie();
@@ -74,6 +76,9 @@ class CategorieRepositoryTest extends KernelTestCase{
         $this->assertEquals("POO",$categories[0]->getName());
     }
 
+    /**
+     * Test sur la méthode FindAllOrderBy
+     */
     public function testFindAllOrderBy(){
         $repository = $this->recupRepository();
         $categorie = $this->newCategorie();

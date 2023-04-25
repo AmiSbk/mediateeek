@@ -29,7 +29,11 @@ class AdminCategoriesController extends AbstractController{
     private $formationRepository;
 
 
-
+    /**
+     * Création du constructeur
+     * @param CategorieRepository $categorieRepository
+     * @param formationRepository $formationRepository
+     */
     public function __construct( CategorieRepository $categorieRepository,formationRepository $formationRepository) {
         $this->categorieRepository = $categorieRepository;
         $this->formationRepository = $formationRepository;
@@ -38,7 +42,8 @@ class AdminCategoriesController extends AbstractController{
 
 
 
-     /**
+    /**
+     * Route admin qui dirige vers les catégories
      * @Route("/admin/categorie", name="admin.categorie")
      * @return Response
      */
@@ -54,6 +59,7 @@ class AdminCategoriesController extends AbstractController{
 
 
     /**
+     * fonction pour supprimer une catégorie 
      * @Route("/admin/categorie/suppr/{id}", name="admin.categorie.suppr")
      * @param Categorie $categorie
      * @return Response
@@ -64,6 +70,7 @@ class AdminCategoriesController extends AbstractController{
     }
 
     /**
+     * fonction pour ajouter une catégorie
      * @Route("/admin/categorie/ajout", name="admin.categorie.ajout")
      * @param Request $request
      * @return Response

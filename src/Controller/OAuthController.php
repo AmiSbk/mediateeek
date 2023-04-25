@@ -15,6 +15,7 @@ class OAuthController extends AbstractController
 {
 
     /**
+     * Redirige l'utilisateur vers un serveur d'authentification
      * @param ClientRegistry $clientRegistry
      * @return RedirectResponse
      * @Route("/oauth/login", name="oauth_login")
@@ -27,7 +28,7 @@ class OAuthController extends AbstractController
     
    
     /**
-     * 
+     * Prend en charge la route de redircetion du retour après l'authentification
      * @param Request $request
      * @param ClientRegistry $clientRegistry
      * @Route("/oauth/callback", name="oauth_check")
@@ -39,6 +40,7 @@ class OAuthController extends AbstractController
     }
     
     /**
+     * Route qui gère la déconnexion
      * @Route("/logout", name="logout")
      */
     public function logout()

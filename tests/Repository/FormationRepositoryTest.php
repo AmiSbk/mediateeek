@@ -42,7 +42,10 @@ class FormationRepositoryTest extends KernelTestCase{
                 ->setPublishedAt(new DateTime("2023/01/14"));
         return $formation;
     }
-
+    
+    /**
+     * Test sur l'ajout d'une formation
+     */
     public function testAddFormation(){
         $repository = $this->recupRepository();
         $formation = $this->newFormation();
@@ -51,6 +54,9 @@ class FormationRepositoryTest extends KernelTestCase{
         $this->assertEquals($nbFormations + 1, $repository->count([]), "erreur lors de l'ajout");
     }
 
+    /**
+     * Test sur la suppression d'une formation
+     */
     public function testRemoveFormation(){
         $repository = $this->recupRepository();
         $formation = $this->newFormation();
@@ -60,6 +66,9 @@ class FormationRepositoryTest extends KernelTestCase{
         $this->assertEquals($nbFormations - 1, $repository->count([]), "erreur lors de la suppression");
     }
 
+    /**
+     * Test sur la méthode FindAllOrdrBy
+     */
     public function testFindAllOrderBy(){
         $repository = $this->recupRepository();
         $formation = $this->newFormation();
@@ -70,6 +79,9 @@ class FormationRepositoryTest extends KernelTestCase{
         $this->assertEquals("Android Studio (complément n°1) : Navigation Drawer et Fragment", $formations[0]->getTitle());
     }
 
+    /**
+     * Test sur la méthode FindAllOrdrByTable
+     */
     public function testFindAllOrderByTable(){
         $repository = $this->recupRepository();
         $formation = $this->newFormation();
@@ -80,6 +92,9 @@ class FormationRepositoryTest extends KernelTestCase{
         $this->assertEquals("Bases de la programmation n°74 - POO : collections", $formations[0]->getTitle());
     }
 
+    /**
+     * Test sur la méthode FindByContainValue
+     */
     public function testFindByContainValue(){
         $repository = $this->recupRepository();
         $formation = $this->newFormation();
@@ -90,6 +105,9 @@ class FormationRepositoryTest extends KernelTestCase{
         $this->assertEquals("C# : ListBox en couleur", $formations[0]->getTitle());
     }
 
+    /**
+     * Test sur la méthode FinByContainValueTable
+     */
     public function testFindByContainValueTable(){
         $repository = $this->recupRepository();
         $formation = $this->newFormation();
@@ -100,6 +118,9 @@ class FormationRepositoryTest extends KernelTestCase{
         $this->assertEquals("Android Studio (complément n°13) : Permissions", $formations[0]->getTitle());
     }
 
+    /**
+     * Test sur la méthode FindAllLasted
+     */
      public function testFindAllLasted(){
         $repository = $this->recupRepository();
         $formation = $this->newFormation();
@@ -110,6 +131,9 @@ class FormationRepositoryTest extends KernelTestCase{
         $this->assertEquals(new DateTime("2023-01-16 13:33:39"), $formations[0]->getPublishedAt());
     }
 
+    /**
+     * Test sur la méthode FindAllForOnePlaylist
+     */
     public function testFindAllForOnePlaylist(){
         $repository = $this->recupRepository();
         $formation = $this->newFormation();

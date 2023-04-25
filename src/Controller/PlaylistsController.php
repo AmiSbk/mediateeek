@@ -22,30 +22,35 @@ class PlaylistsController extends AbstractController {
     private $playlistRepository;
     
     /**
-     * 
      * @var FormationRepository
      */
     private $formationRepository;
     
+    /**
+     * constante qui mène à la page des playlists
+     */
     private const RETOURNEPLAYLISTS = "pages/playlists.html.twig";
 
     
     /**
-     * Création du constructeur
-     * 
-     * 
      * @var CategorieRepository
      */
     private $categorieRepository;    
     
-     function __construct(PlaylistRepository $playlistRepository,CategorieRepository $categorieRepository, FormationRepository $formationRespository) {
+    /**
+     * Création du constructeur
+     * @param PlaylistRepository $playlistRepository
+     * @param CategorieRepository $categorieRepository
+     * @param FormationRepository $formationRepository
+     */
+    function __construct(PlaylistRepository $playlistRepository,CategorieRepository $categorieRepository, FormationRepository $formationRespository) {
         $this->playlistRepository = $playlistRepository;
         $this->categorieRepository = $categorieRepository;
-        $this->formationRepository = $formationRespository;
+        $this->formationRepository = $formationRepository;
     }
     
     /**
-     * Création de la route vers les playlists
+     * Création de la route qui mène vers les playlists
      * @Route("/playlists", name="playlists")
      * @return Response
      */
@@ -86,6 +91,8 @@ class PlaylistsController extends AbstractController {
     }         
     
     /**
+     * Tri des enregistrements en fonction du champ et de l'ordre et de la table si la table n'est pas vide
+     * Tri des enregistrements en fonction du champ et de l'ordre si la table est vide
      * Récupère les enregistrements selon le champ, la valeur et la table
      * @Route("/playlists/recherche/{champ}/{table}", name="playlists.findallcontain")
      * @param type $champ
@@ -96,8 +103,9 @@ class PlaylistsController extends AbstractController {
     public function findAllContain($champ, Request $request, $table=""): Response{
     
         $valeur = $request->get("recherche");
-        if ($table != ""){
-            $playlists = $this->playlistRepository->findByContainValueT($champ, $valeur, $table);
+        if ($table != "")
+        {
+            $playlists = $this->playlistRepository->findByContainValue($champ, $valeur, $table);
         }else{
             $playlists = $this->playlistRepository->findByContainValue($champ, $valeur);
         }
@@ -112,7 +120,7 @@ class PlaylistsController extends AbstractController {
     }  
     
     /**
-     * Récupère les enregistrements de playlists individuelles
+     * Récupère les informations d'une formation 
      * @Route("/playlists/playlist/{id}", name="playlists.showone")
      * @param type $id
      * @return Response

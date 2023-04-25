@@ -16,11 +16,21 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CategorieRepository extends ServiceEntityRepository
 {
+    /**
+     * Création du constructeur
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Categorie::class);
     }
-
+    
+    /**
+     * Ajout d'une catégorie
+     * @param Categorie $entity
+     * @param bool $flush
+     * @return void
+     */
     public function add(Categorie $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -29,7 +39,12 @@ class CategorieRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    /**
+     * Suprresion d'une catégorie
+     * @param Categorie $entity
+     * @param bool $flush
+     * @return void
+     */
     public function remove(Categorie $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -40,6 +55,7 @@ class CategorieRepository extends ServiceEntityRepository
     }
     
     /**
+     * 
      * Retourne la liste des catégories des formations d'une playlist
      * @param type $idPlaylist
      * @return array

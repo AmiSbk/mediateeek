@@ -37,7 +37,9 @@ class AdminFormationsController  extends AbstractController {
         $this->formationRepository = $formationRepository;
         $this->categorieRepository = $categorieRepository;
     }
-        /**
+    
+    /**
+     * Route admin qui redirige vers la page de formation
      * @Route("/admin", name="admin.formations")
      * @return Response
      */
@@ -51,6 +53,9 @@ class AdminFormationsController  extends AbstractController {
     }
 
     /**
+     * Tri des enregistrements en fonction du champ et de l'ordre et de la table si la table n'est pas vide
+     * Tri des enregistrements en fonction du champ et de l'ordre si la table est vide
+
      * @Route("/admin/formations/tri/{champ}/{ordre}/{table}", name="admin.formations.sort")
      * @param type $champ
      * @param type $ordre
@@ -73,6 +78,8 @@ class AdminFormationsController  extends AbstractController {
     }     
 
     /**
+     * Recherche en fonction du champ et de l'ordre et de la table si la table n'est pas vide
+     * Recherche en fonction du champ et de l'ordre si la table est vide
      * @Route("/admin/formations/recherche/{champ}/{table}", name="admin.formations.findallcontain")
      * @param type $champ
      * @param Request $request
@@ -98,7 +105,9 @@ class AdminFormationsController  extends AbstractController {
     }  
 
 
-     /**
+    /**
+     * Création d'un formulaire avec contrôle sur la validité de la date
+     * Retourne sur la page admin des formations
      * @Route("/admin/ajout", name="admin.formation.ajout")
      * @param Request $request
      * @return Response
@@ -113,7 +122,7 @@ class AdminFormationsController  extends AbstractController {
             if ($this->isValidDate($formations->getPublishedAt())) {
                 $this->formationRepository->add($formations, true);
             }            
-#$this->formationRepository->add($formations,true);
+
             return $this->redirectToRoute(self::RETOURNEADMINFORMATION);
         }
 
@@ -121,11 +130,11 @@ class AdminFormationsController  extends AbstractController {
             'formations' => $formations,
             'formFormation' => $formFormation->createView()
         ]);
-
-
     }
 
-      /**
+     /**
+     * Modification d'un formulaire avec contrôle sur la validité de la date
+     * Retourne sur la page admin des formations
      * @Route("/admin/edit/{id}", name="admin.formation.edit")
      * @param Formation $formations
      * @param Request $request
@@ -140,7 +149,6 @@ class AdminFormationsController  extends AbstractController {
             if ($this->isValidDate($formations->getPublishedAt())) {
                 $this->formationRepository->add($formations, true);
             }
-            #$this->formationRepository->add($formations,true);
             return $this->redirectToRoute(self::RETOURNEADMINFORMATION);
         }
 
@@ -154,6 +162,7 @@ class AdminFormationsController  extends AbstractController {
 
 
     /**
+     * Suppression d'une formation et redirection sur la page admin.formation
      * @Route("/admin/suppr/{id}", name="admin.formation.suppr")
      * @param Formation $formations
      * @return Response
@@ -166,7 +175,7 @@ class AdminFormationsController  extends AbstractController {
     }
     
     /**
-     * 
+     * fonction de contrôle sur la validité de la date
      */
     public function isValidDate($date): bool
     {
